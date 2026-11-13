@@ -1,0 +1,20 @@
+﻿# .NET build files
+**/bin/
+**/obj/
+
+# JetBrains Rider
+.idea/
+*.user
+
+# Visual Studio
+.vs/
+
+# Local configuration
+.env
+.env.*
+**/appsettings.Local.json
+
+# Video files
+*.mp4
+*.mkv
+*.avi

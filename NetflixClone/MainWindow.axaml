@@ -1,0 +1,217 @@
+
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:NetflixClone.ViewModels"
+        x:Class="NetflixClone.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="NetflixClone"
+        WindowState="Maximized"
+        MinWidth="800"
+        MinHeight="600"
+        Background="#141414">
+
+    <Grid x:Name="RootGrid">
+
+        <!--film katalog -->
+        <Grid x:Name="NetflixContent"
+              RowDefinitions="Auto,Auto,*,Auto"
+              RowSpacing="20"
+              Margin="30">
+
+            <TextBlock Grid.Row="0"
+                       Text="NETFLIX CLONE"
+                       FontSize="36"
+                       FontWeight="Bold"
+                       Foreground="#E50914"/>
+
+            <TextBlock Grid.Row="1"
+                       Text="Available Movies"
+                       FontSize="26"
+                       FontWeight="Bold"
+                       Foreground="White"/>
+
+            <ListBox Grid.Row="2"
+                     ItemsSource="{Binding Movies}"
+                     SelectedItem="{Binding SelectedMovie}"
+                     Background="#202020"
+                     Foreground="White">
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="vm:Movie">
+
+                        <StackPanel Margin="12" Spacing="6">
+
+                            <TextBlock Text="{Binding Title}"
+                                       FontSize="22"
+                                       FontWeight="Bold"/>
+
+                            <TextBlock Text="{Binding Description}"
+                                       FontSize="15"
+                                       TextWrapping="Wrap"/>
+
+                            <TextBlock Text="{Binding Genre}"
+                                       FontSize="13"
+                                       Foreground="Gray"/>
+
+                            <TextBlock Text="{Binding ReleaseYear, StringFormat='Release Year: {0}'}"
+                                       FontSize="13"
+                                       Foreground="LightGray"/>
+
+                        </StackPanel>
+
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+
+            <StackPanel Grid.Row="3" Spacing="12">
+
+                <StackPanel Orientation="Horizontal"
+                            Spacing="12">
+
+                    <Button Content="▶ Play Movie"
+                            Command="{Binding PlayMovieCommand}"
+                            Background="#E50914"
+                            Foreground="White"
+                            FontSize="18"
+                            Padding="20,12"/>
+
+                    <Button Content="+ Add Movie"
+                            Click="ShowAddMovie_Click"
+                            Background="#303030"
+                            Foreground="White"
+                            FontSize="18"
+                            Padding="20,12"/>
+
+                </StackPanel>
+
+                <TextBlock Text="{Binding StatusMessage}"
+                           Foreground="LightGray"
+                           FontSize="14"/>
+
+            </StackPanel>
+
+        </Grid>
+
+        <!-- add movie side -->
+        <Grid x:Name="AddMovieContent"
+              IsVisible="False"
+              RowDefinitions="Auto,*,Auto"
+              Margin="30"
+              RowSpacing="20">
+
+            <TextBlock Grid.Row="0"
+                       Text="Add New Movie"
+                       FontSize="32"
+                       FontWeight="Bold"
+                       Foreground="White"/>
+
+            <ScrollViewer Grid.Row="1">
+
+                <StackPanel Spacing="14"
+                            MaxWidth="600"
+                            HorizontalAlignment="Left">
+
+                    <TextBlock Text="Title"
+                               Foreground="White"/>
+
+                    <TextBox Text="{Binding NewMovieTitle}"
+                             PlaceholderText="Movie title"/>
+
+                    <TextBlock Text="Description"
+                               Foreground="White"/>
+
+                    <TextBox Text="{Binding NewMovieDescription}"
+                             PlaceholderText="Movie description"
+                             AcceptsReturn="True"
+                             Height="100"
+                             TextWrapping="Wrap"/>
+
+                    <TextBlock Text="Genre"
+                               Foreground="White"/>
+
+                    <TextBox Text="{Binding NewMovieGenre}"
+                             PlaceholderText="e.g. Action"/>
+
+                    <TextBlock Text="Release Year"
+                               Foreground="White"/>
+
+                    <TextBox Text="{Binding NewMovieReleaseYear}"
+                             PlaceholderText="e.g. 2026"/>
+
+                    <TextBlock Text="Video File"
+                               Foreground="White"/>
+
+                    <Button Content="Browse MP4..."
+                            Click="BrowseVideo_Click"
+                            HorizontalAlignment="Left"
+                            Padding="16,10"/>
+
+                    <TextBlock Text="{Binding SelectedVideoFile}"
+                               Foreground="LightGray"
+                               TextWrapping="Wrap"/>
+
+                    <TextBlock Text="{Binding StatusMessage}"
+                               Foreground="LightGray"
+                               TextWrapping="Wrap"/>
+
+                </StackPanel>
+
+            </ScrollViewer>
+
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal"
+                        Spacing="12">
+
+                <Button Content="Save Movie"
+                        Click="SaveMovie_Click"
+                        Background="#E50914"
+                        Foreground="White"
+                        FontSize="17"
+                        Padding="20,12"/>
+
+                <Button Content="Cancel"
+                        Click="CancelAddMovie_Click"
+                        Background="#303030"
+                        Foreground="White"
+                        FontSize="17"
+                        Padding="20,12"/>
+
+            </StackPanel>
+
+        </Grid>
+
+        <!-- video player -->
+        <Grid x:Name="PlayerContent"
+              RowDefinitions="Auto,*"
+              IsVisible="False"
+              Background="Black">
+
+            <Button x:Name="BackButton"
+                    Grid.Row="0"
+                    Content="← Back to Catalog"
+                    Click="BackToCatalog_Click"
+                    Background="#E50914"
+                    Foreground="White"
+                    FontSize="17"
+                    Padding="18,10"
+                    Margin="20"
+                    HorizontalAlignment="Left"/>
+
+            <Border x:Name="VideoContainer"
+                    Grid.Row="1"
+                    Background="Black"
+                    ClipToBounds="True">
+
+                <NativeWebView x:Name="VideoPlayer"
+                               Source="about:blank"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch"/>
+
+            </Border>
+
+        </Grid>
+
+    </Grid>
+
+</Window>

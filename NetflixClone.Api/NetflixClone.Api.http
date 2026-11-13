@@ -1,0 +1,35 @@
+### Create a new movie
+POST http://localhost:5142/api/movies
+Content-Type: application/json
+
+{
+  "title": "Inception",
+  "description": "A thief enters people's dreams to steal secrets.",
+  "genre": "Sci-Fi",
+  "releaseYear": 2010
+}
+
+### Update Inception
+PUT http://localhost:5142/api/movies/6aef362dcb3b0eeb49c73010
+Content-Type: application/json
+
+{
+  "title": "Inception",
+  "description": "A skilled thief enters dreams to steal information and plant ideas.",
+  "genre": "Sci-Fi",
+  "releaseYear": 2010
+}
+
+### Create a movie for DELETE testing
+POST http://localhost:5142/api/movies
+Content-Type: application/json
+
+{
+  "title": "Delete Test Movie",
+  "description": "This movie will be deleted during testing.",
+  "genre": "Test",
+  "releaseYear": 2026
+}
+
+### Delete test movie
+DELETE http://localhost:5142/api/movies/6aef37f9e855e198f9ca07d2
